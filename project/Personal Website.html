@@ -1,0 +1,1513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Personal Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b1220;
+    --ink-2:#0f172a;
+    --ink-3:#1a2540;
+    --cool-line: rgba(255,255,255,0.08);
+    --cool-mute: rgba(255,255,255,0.55);
+    --cool-accent:#7ee0d3;     /* soft cyan */
+    --warm:#f6f1e8;
+    --warm-2:#efe8db;
+    --warm-3:#e6dcc7;
+    --warm-line: rgba(15,23,42,0.10);
+    --warm-mute: rgba(15,23,42,0.62);
+    --warm-accent:#b8753a;     /* muted amber */
+    --warm-ink:#1c1610;
+    --serif:'Fraunces', Georgia, serif;
+    --sans:'Inter', system-ui, sans-serif;
+    --display:'Space Grotesk', 'Inter', sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, Menlo, monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--warm);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- TOP NAV ---------- */
+  .anchor{position:absolute; top:0}
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+    padding:22px 36px;
+    mix-blend-mode:difference;
+    color:#fff;
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.02em;
+    pointer-events:none;
+  }
+  .nav .links{display:flex; gap:36px; pointer-events:auto; justify-self:center}
+  .nav .links a{position:relative; opacity:0.6; transition:opacity .2s; text-transform:lowercase; padding:6px 0}
+  .nav .links a::after{content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px; background:currentColor; transform:scaleX(0); transform-origin:center; transition:transform .25s ease}
+  .nav .links a:hover{opacity:1}
+  .nav .links a.active{opacity:1}
+  .nav .links a.active::after{transform:scaleX(1)}
+  .nav .brand{pointer-events:auto; font-weight:500; justify-self:start}
+  .nav-right{display:flex; align-items:center; gap:14px; justify-self:end; pointer-events:auto}
+  .nav-right .social{display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; opacity:0.85; transition:opacity .2s; color:inherit}
+  .nav-right .social:hover{opacity:1}
+  .nav .brand .dot{display:inline-block; width:6px; height:6px; border-radius:50%; background:#7ee0d3; margin-right:8px; transform:translateY(-2px)}
+  .lang-switch{display:inline-flex; align-items:center; gap:6px; margin-left:14px; padding-left:16px; border-left:1px solid rgba(255,255,255,0.25); pointer-events:auto}
+  .lang-btn{appearance:none; background:transparent; border:0; color:inherit; font:inherit; padding:0; cursor:pointer; opacity:0.5; transition:opacity .2s; letter-spacing:0.04em}
+  .lang-btn:hover{opacity:0.85}
+  .lang-btn.active{opacity:1; font-weight:600}
+  .lang-sep{opacity:0.35}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    height:100vh;
+    min-height:640px;
+    overflow:hidden;
+    display:flex;
+  }
+  .half{
+    position:relative;
+    flex:1 1 50%;
+    transition:flex-basis 700ms cubic-bezier(.7,.0,.2,1), flex-grow 700ms cubic-bezier(.7,.0,.2,1);
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    cursor:pointer;
+  }
+  .hero.left-active .left{flex:1 1 62%}
+  .hero.left-active .right{flex:1 1 38%}
+  .hero.right-active .right{flex:1 1 62%}
+  .hero.right-active .left{flex:1 1 38%}
+
+  /* LEFT - Coder */
+  .left{
+    background:
+      radial-gradient(1200px 600px at 20% 110%, #16224a 0%, transparent 60%),
+      radial-gradient(800px 500px at 80% -10%, #1b2a55 0%, transparent 55%),
+      var(--ink-2);
+    color:#fff;
+  }
+  .left::before{
+    /* subtle grid */
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 30% 60%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 30% 60%, #000 30%, transparent 75%);
+    pointer-events:none;
+  }
+
+  /* RIGHT - Strategy */
+  .right{
+    background:
+      radial-gradient(900px 500px at 80% 110%, #ece2cd 0%, transparent 55%),
+      radial-gradient(700px 500px at 20% -10%, #f9f4e9 0%, transparent 55%),
+      var(--warm);
+    color:var(--warm-ink);
+  }
+  .right::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: radial-gradient(rgba(28,22,16,0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse at 70% 60%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 70% 60%, #000 30%, transparent 75%);
+    pointer-events:none;
+  }
+
+  .half-inner{
+    position:relative; z-index:2;
+    width:100%;
+    padding:0 8vw;
+    max-width:760px;
+  }
+  .left .half-inner{padding-right:14vw; padding-left:7vw; margin-left:0; margin-right:auto}
+  .right .half-inner{padding-left:14vw; padding-right:7vw; margin-left:auto; margin-right:0}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    opacity:0.7;
+    margin-bottom:22px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow .num{opacity:0.5}
+
+  h1.role{
+    margin:0 0 22px;
+    font-family:var(--display);
+    font-weight:500;
+    font-size:clamp(44px, 6.4vw, 92px);
+    line-height:0.98;
+    letter-spacing:-0.02em;
+  }
+  .left h1.role{
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:clamp(40px, 5.6vw, 78px);
+    letter-spacing:-0.01em;
+  }
+  .left h1.role .ang{color:var(--cool-accent); font-weight:400}
+  .left h1.role .word{color:#fff}
+  .right h1.role .accent{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:400;
+    color:var(--warm-accent);
+  }
+
+  .role-sub{
+    margin:0 0 36px;
+    font-size:clamp(16px, 1.2vw, 19px);
+    line-height:1.5;
+    max-width:30ch;
+    opacity:0.85;
+  }
+  .left .role-sub{color:var(--cool-mute); opacity:1}
+  .right .role-sub{color:var(--warm-mute); opacity:1}
+
+  .role-meta{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-bottom:40px;
+  }
+  .chip{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.06em;
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid currentColor;
+    opacity:0.75;
+  }
+  .left .chip{border-color:var(--cool-line); background:rgba(255,255,255,0.03)}
+  .right .chip{border-color:var(--warm-line); background:rgba(255,255,255,0.5)}
+
+  .role-cta{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    padding:14px 18px;
+    border-radius:999px;
+    border:1px solid currentColor;
+    transition:transform .25s ease, background .25s ease, color .25s ease;
+  }
+  .left .role-cta{border-color:rgba(255,255,255,0.25)}
+  .left .role-cta:hover{background:#fff; color:var(--ink-2); border-color:#fff}
+  .right .role-cta{border-color:rgba(28,22,16,0.3)}
+  .right .role-cta:hover{background:var(--warm-ink); color:var(--warm); border-color:var(--warm-ink)}
+  .role-cta .arrow{display:inline-block; transition:transform .25s ease}
+  .role-cta:hover .arrow{transform:translateX(4px)}
+
+  /* corner labels */
+  .corner{
+    position:absolute;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    opacity:0.55;
+    z-index:3;
+  }
+  .left .corner.tl{top:50%; left:32px; transform:translateY(-50%) rotate(-90deg); transform-origin:left center}
+  .right .corner.tr{top:50%; right:32px; transform:translateY(-50%) rotate(90deg); transform-origin:right center}
+  .corner.bl{bottom:24px; left:32px}
+  .corner.br{bottom:24px; right:32px}
+
+  /* ascii decoration on engineer side */
+  .left .codeblock{
+    position:absolute;
+    right:-20px;
+    bottom:60px;
+    font-family:var(--mono);
+    font-size:12px;
+    line-height:1.7;
+    color:rgba(255,255,255,0.35);
+    text-align:right;
+    pointer-events:none;
+    z-index:2;
+  }
+  .left .codeblock .k{color:var(--cool-accent)}
+
+  /* serif quote on strategy side */
+  .right .quote{
+    position:absolute;
+    left:-20px;
+    bottom:80px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:18px;
+    line-height:1.4;
+    color:rgba(28,22,16,0.5);
+    text-align:left;
+    max-width:280px;
+    pointer-events:none;
+  }
+  .right .quote::before{
+    content:"";
+    display:block;
+    width:36px; height:1px;
+    background:var(--warm-accent);
+    margin-bottom:12px;
+  }
+
+  /* ---------- CENTERED PHOTO ---------- */
+  .portrait{
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%, -50%);
+    width:clamp(180px, 22vw, 280px);
+    aspect-ratio:1/1;
+    border-radius:50%;
+    z-index:5;
+    pointer-events:none;
+    transition:transform .7s cubic-bezier(.7,0,.2,1);
+  }
+  .portrait .ring{
+    position:absolute; inset:-18px;
+    border-radius:50%;
+    border:1px dashed rgba(255,255,255,0.4);
+    animation:spin 40s linear infinite;
+  }
+  .portrait .ring.outer{
+    inset:-36px;
+    border:1px dashed rgba(28,22,16,0.25);
+    animation-direction:reverse;
+    animation-duration:60s;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .portrait .photo{
+    position:absolute; inset:0;
+    border-radius:50%;
+    overflow:hidden;
+    background:
+      linear-gradient(135deg, #2a3766 0%, #2a3766 49.9%, #e6dcc7 50.1%, #e6dcc7 100%);
+    box-shadow:
+      0 30px 80px -20px rgba(0,0,0,0.45),
+      0 0 0 6px rgba(255,255,255,0.85),
+      0 0 0 7px rgba(28,22,16,0.08);
+  }
+  .portrait .photo .face{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.85);
+  }
+  .portrait .photo .face .lbl{
+    background:rgba(0,0,0,0.4);
+    padding:6px 10px;
+    border-radius:4px;
+    backdrop-filter:blur(4px);
+  }
+  .portrait .name-tag{
+    position:absolute;
+    left:50%; bottom:-46px;
+    transform:translateX(-50%);
+    white-space:nowrap;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.9);
+    background:rgba(11,18,32,0.7);
+    padding:6px 12px;
+    border-radius:999px;
+    backdrop-filter:blur(6px);
+  }
+
+  /* slash divider */
+  .seam{
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    width:1px;
+    background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.15) 20%, rgba(255,255,255,0.15) 80%, transparent);
+    z-index:3;
+    transform:translateX(-50%);
+    pointer-events:none;
+    transition:left .7s cubic-bezier(.7,0,.2,1);
+  }
+  .hero.left-active .seam{left:62%}
+  .hero.right-active .seam{left:38%}
+  .hero.left-active .portrait{transform:translate(-50%, -50%) translateX(12vw) scale(0.92)}
+  .hero.right-active .portrait{transform:translate(-50%, -50%) translateX(-12vw) scale(0.92)}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{
+    padding:140px 7vw;
+    position:relative;
+  }
+  .section-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:64px;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--warm-line);
+  }
+  .section-head .label{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--warm-mute);
+  }
+  .section-head h2{
+    margin:8px 0 0;
+    font-family:var(--display);
+    font-weight:500;
+    font-size:clamp(36px, 4.4vw, 60px);
+    line-height:1;
+    letter-spacing:-0.02em;
+    max-width:14ch;
+  }
+  .section-head h2 em{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:400;
+    color:var(--warm-accent);
+  }
+  .section-head .meta{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--warm-mute);
+    text-align:right;
+    letter-spacing:0.04em;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+  .pcard{
+    position:relative;
+    border:1px solid var(--warm-line);
+    border-radius:18px;
+    overflow:hidden;
+    background:#fffdf8;
+    display:flex;
+    flex-direction:column;
+    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  }
+  .pcard:hover{
+    transform:translateY(-4px);
+    box-shadow:0 24px 60px -28px rgba(28,22,16,0.25);
+    border-color:rgba(28,22,16,0.18);
+  }
+  .pcard .thumb{
+    aspect-ratio: 4/3;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--warm-line);
+  }
+  .pcard .thumb .stripes{
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(135deg,
+        rgba(28,22,16,0.06) 0 1px,
+        transparent 1px 14px);
+  }
+  .pcard .thumb .placeholder-tag{
+    position:absolute; left:14px; bottom:14px;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--warm-mute);
+  }
+  .pcard.eng .thumb{background:linear-gradient(135deg,#0f172a,#1a2750)}
+  .pcard.eng .thumb .stripes{
+    background:repeating-linear-gradient(135deg, rgba(126,224,211,0.08) 0 1px, transparent 1px 14px);
+  }
+  .pcard.eng .thumb .placeholder-tag{color:rgba(255,255,255,0.55)}
+  .pcard.eng .thumb .ascii{
+    position:absolute; top:18px; left:18px;
+    font-family:var(--mono); font-size:11px; line-height:1.6;
+    color:rgba(126,224,211,0.65);
+    white-space:pre;
+  }
+  .pcard.pm .thumb{background:linear-gradient(135deg,#efe8db,#e6dcc7)}
+  .pcard.pm .thumb .badge{
+    position:absolute; top:18px; left:18px;
+    font-family:var(--serif); font-style:italic; font-weight:300; font-size:42px;
+    color:var(--warm-accent);
+  }
+
+  .pcard .body{padding:22px 22px 26px}
+  .pcard .tagrow{
+    display:flex; align-items:center; gap:8px; margin-bottom:14px;
+  }
+  .ptag{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:5px 9px;
+    border-radius:5px;
+  }
+  .ptag.eng{ background:rgba(15,23,42,0.92); color:#7ee0d3 }
+  .ptag.pm{ background:#1c1610; color:#f6f1e8 }
+  .pcard .year{
+    margin-left:auto;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--warm-mute);
+  }
+  .pcard h3{
+    margin:0 0 8px;
+    font-family:var(--display);
+    font-weight:500;
+    font-size:22px;
+    line-height:1.2;
+    letter-spacing:-0.01em;
+  }
+  .pcard p{
+    margin:0 0 18px;
+    font-size:14.5px;
+    line-height:1.55;
+    color:var(--warm-mute);
+  }
+  .pcard .stack{
+    display:flex; flex-wrap:wrap; gap:6px;
+    border-top:1px solid var(--warm-line);
+    padding-top:14px;
+  }
+  .pcard .stack span{
+    font-family:var(--mono);
+    font-size:10.5px;
+    color:var(--warm-mute);
+    letter-spacing:0.04em;
+  }
+  .pcard .stack span:not(:last-child)::after{content:"·"; margin-left:6px; opacity:0.5}
+
+  /* ---------- SKILLS ---------- */
+  .skills-section{
+    background:var(--ink-2);
+    color:#fff;
+  }
+  .skills-section .section-head{border-color:var(--cool-line)}
+  .skills-section .section-head .label,
+  .skills-section .section-head .meta{color:var(--cool-mute)}
+  .skills-section .section-head h2 em{color:var(--cool-accent)}
+  .skills{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+  }
+  .skill-col h3{
+    margin:0 0 28px;
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--cool-mute);
+    display:flex; align-items:center; gap:12px;
+  }
+  .skill-col h3 .num{color:var(--cool-accent); opacity:0.9}
+  .skill-list{
+    list-style:none; padding:0; margin:0;
+    display:flex; flex-direction:column;
+  }
+  .skill-list li{
+    display:grid;
+    grid-template-columns: 1fr auto;
+    align-items:center;
+    gap:16px;
+    padding:18px 0;
+    border-top:1px solid var(--cool-line);
+    font-size:18px;
+  }
+  .skill-list li:last-child{border-bottom:1px solid var(--cool-line)}
+  .skill-list li .label{font-family:var(--display); font-weight:500; letter-spacing:-0.005em}
+  .skill-list li .level{
+    display:flex; gap:5px;
+  }
+  .skill-list li .level i{
+    width:22px; height:6px; border-radius:2px;
+    background:rgba(255,255,255,0.12);
+    display:block;
+  }
+  .skill-list li .level i.on{background:var(--cool-accent)}
+  .skill-col.pm h3 .num{color:#e8b079}
+  .skill-col.pm .skill-list li .level i.on{background:#e8b079}
+  .skill-col.pm .skill-list li .label{font-family:var(--display)}
+  .skill-col.pm .skill-list li .label em{font-family:var(--serif); font-style:italic; font-weight:400; color:#e8b079}
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  .timeline{
+    position:relative;
+    margin:0 auto;
+    max-width:1100px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:130px; top:6px; bottom:6px;
+    width:1px;
+    background:var(--warm-line);
+  }
+  .trow{
+    display:grid;
+    grid-template-columns:130px 1fr;
+    gap:40px;
+    padding:30px 0;
+    position:relative;
+  }
+  .trow + .trow{border-top:1px solid var(--warm-line)}
+  .trow .when{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.06em;
+    color:var(--warm-mute);
+    padding-top:6px;
+  }
+  .trow .when .yr{color:var(--warm-ink); display:block; font-size:13px; font-weight:500; margin-bottom:2px}
+  .trow .dot{
+    position:absolute;
+    left:128px; top:38px;
+    width:10px; height:10px;
+    border-radius:50%;
+    background:var(--warm);
+    border:2px solid var(--warm-ink);
+    transform:translateX(-50%);
+  }
+  .trow.eng .dot{background:var(--ink-2); border-color:var(--ink-2)}
+  .trow .what{
+    padding-left:30px;
+  }
+  .trow h3{
+    margin:0 0 6px;
+    font-family:var(--display);
+    font-weight:500;
+    font-size:24px;
+    letter-spacing:-0.01em;
+  }
+  .trow .org{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    font-size:18px;
+    color:var(--warm-accent);
+    margin:0 0 14px;
+  }
+  .trow.eng .org{color:#516191; font-style:normal; font-family:var(--mono); font-size:14px}
+  .trow p{
+    margin:0 0 12px;
+    font-size:15px; line-height:1.6;
+    color:var(--warm-mute);
+    max-width:60ch;
+  }
+  .trow .tagrow{
+    display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;
+  }
+  .trow .tagrow span{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--warm-mute);
+    padding:4px 8px;
+    border:1px solid var(--warm-line);
+    border-radius:4px;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    background:var(--warm-ink);
+    color:var(--warm);
+    padding:160px 7vw 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .contact .big{
+    font-family:var(--display);
+    font-weight:500;
+    font-size:clamp(48px, 8vw, 120px);
+    line-height:0.95;
+    letter-spacing:-0.03em;
+    margin:0 0 60px;
+    max-width:14ch;
+  }
+  .contact .big em{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:300;
+    color:#e8b079;
+  }
+  .contact .sub{
+    font-size:18px; line-height:1.5;
+    color:rgba(246,241,232,0.65);
+    max-width:46ch;
+    margin:0 0 60px;
+  }
+  .contact-actions{
+    display:flex; flex-wrap:wrap; gap:14px; margin-bottom:120px;
+  }
+  .cbtn{
+    display:inline-flex; align-items:center; gap:14px;
+    padding:18px 26px;
+    border-radius:999px;
+    font-family:var(--display);
+    font-weight:500;
+    font-size:16px;
+    letter-spacing:-0.005em;
+    border:1px solid rgba(246,241,232,0.2);
+    transition:transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+  }
+  .cbtn.primary{background:var(--warm); color:var(--warm-ink); border-color:var(--warm)}
+  .cbtn.primary:hover{background:#fff; transform:translateY(-2px)}
+  .cbtn.ghost:hover{border-color:rgba(246,241,232,0.6); transform:translateY(-2px)}
+  .cbtn .arrow{display:inline-flex; transition:transform .25s ease}
+  .cbtn:hover .arrow{transform:translate(3px,-3px)}
+  .cbtn .icon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px;
+  }
+  .contact-foot{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px;
+    border-top:1px solid rgba(246,241,232,0.15);
+    padding-top:30px;
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.06em;
+    color:rgba(246,241,232,0.5);
+  }
+  .contact-foot a:hover{color:var(--warm)}
+  .contact .glyph{
+    position:absolute;
+    right:var(--glyph-right, -80px);
+    top:var(--glyph-top, 80px);
+    font-family:var(--glyph-family, var(--serif));
+    font-style:var(--glyph-style, italic);
+    font-weight:var(--glyph-weight, 300);
+    font-size:var(--glyph-size, 520px);
+    color:var(--glyph-color, rgba(232,176,121,0.06));
+    line-height:1;
+    pointer-events:none;
+    user-select:none;
+    transition:font-size .25s ease, color .25s ease, top .25s ease, right .25s ease;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px){
+    .nav{padding:18px 20px}
+    .nav .links{gap:18px}
+
+    .hero{flex-direction:column; height:auto; min-height:0}
+    .half{flex: 1 1 auto !important; min-height:62vh; padding:90px 0 80px}
+    .half-inner{padding:0 28px !important; max-width:100%}
+    .left .codeblock, .right .quote{display:none}
+    .corner{display:none}
+
+    .portrait{
+      position:relative;
+      top:auto; left:auto;
+      transform:translate(0,0);
+      margin:-90px auto 0;
+      width:200px;
+      z-index:6;
+    }
+    .hero.left-active .portrait,
+    .hero.right-active .portrait{transform:none}
+    .seam{display:none}
+
+    section.block{padding:90px 24px}
+    .section-head{flex-direction:column; align-items:flex-start; gap:8px}
+    .section-head .meta{text-align:left}
+
+    .projects{grid-template-columns:1fr}
+    .skills{grid-template-columns:1fr; gap:48px}
+    .timeline::before{left:8px}
+    .trow{grid-template-columns:1fr; gap:8px}
+    .trow .dot{left:8px; top:34px}
+    .trow .what{padding-left:30px}
+
+    .contact{padding:100px 24px 60px}
+    .contact .glyph{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="brand"><span class="dot"></span><span data-i18n-html="brand">YU-CHEN SU<br/>  Will<br/></span></div>
+  <div class="links">
+    <a href="#about" data-tab="about" data-i18n="nav.about">about</a>
+    <a href="#portfolio" data-tab="portfolio" data-i18n="nav.portfolio">portfolio</a>
+    <a href="#experience" data-tab="experience" data-i18n="nav.experience">experience</a>
+    <a href="#skills" data-tab="skills" data-i18n="nav.skills">skills</a>
+    <a href="#contact" data-tab="contact" data-i18n="nav.contact">contact</a>
+  </div>
+  <div class="nav-right">
+    <a class="social" href="https://linkedin.com/in/yourname" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21H18.6v-5.5c0-1.3-.02-3-1.83-3-1.83 0-2.1 1.43-2.1 2.9V21H10z"/></svg>
+    </a>
+    <a class="social" href="https://github.com/yourname" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+    </a>
+    <a class="social" href="https://instagram.com/yourname" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <span class="lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang="en" class="lang-btn active">EN</button>
+      <span class="lang-sep">/</span>
+      <button type="button" data-lang="zh" class="lang-btn">繁體中文</button>
+    </span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero"><span id="about" class="anchor"></span>
+  <div class="seam"></div>
+
+  <!-- LEFT: Coder -->
+  <div class="half left" data-side="left">
+    <div class="corner tl" data-i18n="hero.left.corner1">01 — Coder</div>
+    <div class="corner bl" data-i18n="hero.left.corner2">$ whoami → builder</div>
+
+    <div class="half-inner">
+      <div class="eyebrow"><span class="num">01 / 02</span><span data-i18n="hero.left.eyebrow">Builder mode</span></div>
+      <h1 class="role">
+        <span class="ang">&lt;</span><span class="word" data-i18n="hero.left.title">Coder</span><span class="ang">/&gt;</span>
+      </h1>
+      <p class="role-sub" data-i18n="hero.left.sub">I build scalable software and AI-powered systems — from infra to interface.</p>
+      <div class="role-meta">
+        <span class="chip">TypeScript</span>
+        <span class="chip">Python</span>
+        <span class="chip">LLM systems</span>
+        <span class="chip">Distributed systems</span>
+      </div>
+      <a class="role-cta" href="#work"><span data-i18n="hero.left.cta">See engineering work</span> <span class="arrow">→</span></a>
+    </div>
+
+    <pre class="codeblock"><span class="k">function</span> shipIt() {
+  <span class="k">const</span> idea = spark();
+  <span class="k">return</span> system
+    .design(idea)
+    .build()
+    .iterate();
+}</pre>
+  </div>
+
+  <!-- RIGHT: Strategy -->
+  <div class="half right" data-side="right">
+    <div class="corner tr" data-i18n="hero.right.corner1">02 — Strategy</div>
+    <div class="corner br" data-i18n="hero.right.corner2">— Idea → Impact</div>
+
+    <div class="half-inner">
+      <div class="eyebrow"><span class="num">02 / 02</span><span data-i18n="hero.right.eyebrow">Operator mode</span></div>
+      <h1 class="role" data-i18n-html="hero.right.title">Strategy <span class="accent" style="font-family: sans-serif">&amp;</span> Leadership</h1>
+      <p class="role-sub" data-i18n="hero.right.sub">I drive products from idea to impact — aligning teams, defining vision, shipping outcomes.</p>
+      <div class="role-meta">
+        <span class="chip">Product Strategy</span>
+        <span class="chip">Roadmapping</span>
+        <span class="chip">Team Leadership</span>
+        <span class="chip">GTM</span>
+      </div>
+      <a class="role-cta" href="#work"><span data-i18n="hero.right.cta">See strategy work</span> <span class="arrow">→</span></a>
+    </div>
+
+    <div class="quote" data-i18n-html="hero.right.quote">"The hardest part isn't<br/>building the thing —<br/>it's deciding which thing<br/>to build."</div>
+  </div>
+
+  <!-- PORTRAIT -->
+  <div class="portrait" aria-hidden="true">
+    <div class="ring outer"></div>
+    <div class="ring"></div>
+    <div class="photo">
+      <div class="face"><span class="lbl" data-i18n="photo.label">PHOTO · 1:1</span></div>
+    </div>
+    <div class="name-tag" data-i18n="photo.tag">Your Name · Coder × Operator</div>
+  </div>
+</header>
+
+<!-- FEATURED PROJECTS -->
+<section class="block" id="work"><span id="portfolio" class="anchor"></span>
+  <div class="section-head">
+    <div>
+      <div class="label" data-i18n="work.label">01 — Featured Work</div>
+      <h2 data-i18n-html="work.title">Selected <em>projects</em>, two ways.</h2>
+    </div>
+    <div class="meta" data-i18n-html="work.meta">
+      Updated · 2026<br/>
+      03 of 12 shown
+    </div>
+  </div>
+
+  <div class="projects">
+
+    <article class="pcard eng">
+      <div class="thumb">
+        <div class="stripes"></div>
+        <pre class="ascii">┌─ infer ─┐
+│ ▓▓▓▓░░░ │
+│ tokens/s│
+└─────────┘</pre>
+        <div class="placeholder-tag">// project shot</div>
+      </div>
+      <div class="body">
+        <div class="tagrow">
+          <span class="ptag eng" data-i18n="tag.coder">[ Coder ]</span>
+          <span class="year" data-i18n="work.p1.year">2025 — present</span>
+        </div>
+        <h3 data-i18n="work.p1.title">Realtime LLM Orchestration Engine</h3>
+        <p data-i18n="work.p1.body">A streaming inference layer that routes prompts across model providers with sub-100ms failover. Cut p95 latency 38% and infra spend 2.4×.</p>
+        <div class="stack">
+          <span>TypeScript</span><span>Rust</span><span>Postgres</span><span>Redis</span><span>K8s</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="pcard pm">
+      <div class="thumb">
+        <div class="stripes"></div>
+        <div class="badge">P/M</div>
+        <div class="placeholder-tag">// case study image</div>
+      </div>
+      <div class="body">
+        <div class="tagrow">
+          <span class="ptag pm" data-i18n="tag.pm">[ Project Management ]</span>
+          <span class="year" data-i18n="work.p2.year">2024 — 2025</span>
+        </div>
+        <h3 data-i18n="work.p2.title">Zero-to-One Fintech Launch</h3>
+        <p data-i18n="work.p2.body">Led 14-person cross-functional team from blank doc to public launch in 9 months. Defined roadmap, owned GTM, hit 22k WAU in quarter one.</p>
+        <div class="stack">
+          <span>Strategy</span><span>Roadmap</span><span>GTM</span><span>Hiring</span><span>Pricing</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="pcard eng">
+      <div class="thumb">
+        <div class="stripes"></div>
+        <pre class="ascii">┌─ graph ──┐
+│  ●─●─●   │
+│  │ ╲ │   │
+│  ●─●─●   │
+└──────────┘</pre>
+        <div class="placeholder-tag">// product screenshot</div>
+      </div>
+      <div class="body">
+        <div class="tagrow">
+          <span class="ptag eng" data-i18n="tag.coder">[ Coder ]</span>
+          <span class="year">2024</span>
+        </div>
+        <h3 data-i18n="work.p3.title">Open-Source Agent Framework</h3>
+        <p data-i18n="work.p3.body">Composable primitives for building tool-using agents. 6.4k GitHub stars, 90+ contributors, used by three YC companies in production.</p>
+        <div class="stack">
+          <span>Python</span><span>FastAPI</span><span>OSS</span><span>DX</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="block" id="experience">
+  <div class="section-head">
+    <div>
+      <div class="label" data-i18n="exp.label">02 — Experience</div>
+      <h2 data-i18n-html="exp.title">A career, <em>zigzagged</em> on purpose.</h2>
+    </div>
+    <div class="meta" data-i18n-html="exp.meta">2017 — Present<br/>5 roles · 3 cities</div>
+  </div>
+
+  <div class="timeline">
+
+    <div class="trow pm">
+      <div class="when"><span class="yr" data-i18n="exp.r1.yr">2024 — Present</span><span data-i18n="exp.r1.loc">San Francisco</span></div>
+      <div class="dot"></div>
+      <div class="what">
+        <h3 data-i18n="exp.r1.title">Head of Product</h3>
+        <p class="org" data-i18n="exp.r1.org">Stealth AI Startup</p>
+        <p data-i18n="exp.r1.body">Leading product, design, and applied research from seed to Series A. Defined the wedge, hired the founding team, took v1 from kickoff to public launch in 9 months.</p>
+        <div class="tagrow"><span>Strategy</span><span>0→1</span><span>Hiring</span><span>Fundraising</span></div>
+      </div>
+    </div>
+
+    <div class="trow eng">
+      <div class="when"><span class="yr">2022 — 2024</span><span data-i18n="exp.r2.loc">Remote</span></div>
+      <div class="dot"></div>
+      <div class="what">
+        <h3 data-i18n="exp.r2.title">Staff Software Coder</h3>
+        <p class="org">@public-saas-co</p>
+        <p data-i18n="exp.r2.body">Tech lead on the platform team. Re-architected the data plane to support 50× growth, mentored 6 engineers, owned the LLM features that unlocked the company's largest enterprise deal to date.</p>
+        <div class="tagrow"><span>Distributed systems</span><span>LLMs</span><span>Mentoring</span></div>
+      </div>
+    </div>
+
+    <div class="trow pm">
+      <div class="when"><span class="yr">2020 — 2022</span><span data-i18n="exp.r3.loc">New York</span></div>
+      <div class="dot"></div>
+      <div class="what">
+        <h3 data-i18n="exp.r3.title">Senior Product Manager</h3>
+        <p class="org" data-i18n="exp.r3.org">Series B Fintech</p>
+        <p data-i18n="exp.r3.body">Owned the consumer-facing product surface. Shipped weekly with a team of 9, ran the OKR cycle for the org, drove a pricing change that lifted ARPU 31%.</p>
+        <div class="tagrow"><span>PM</span><span>Pricing</span><span>OKRs</span></div>
+      </div>
+    </div>
+
+    <div class="trow eng">
+      <div class="when"><span class="yr">2018 — 2020</span><span data-i18n="exp.r4.loc">New York</span></div>
+      <div class="dot"></div>
+      <div class="what">
+        <h3 data-i18n="exp.r4.title">Software Coder</h3>
+        <p class="org">@fintech-startup</p>
+        <p data-i18n="exp.r4.body">Full-stack engineer on the trading platform. Built the matching engine v2, owned the public API, on-call rotation for the production stack.</p>
+        <div class="tagrow"><span>Backend</span><span>APIs</span><span>On-call</span></div>
+      </div>
+    </div>
+
+    <div class="trow eng">
+      <div class="when"><span class="yr">2017 — 2018</span><span data-i18n="exp.r5.loc">Toronto</span></div>
+      <div class="dot"></div>
+      <div class="what">
+        <h3 data-i18n="exp.r5.title">Software Coder, New Grad</h3>
+        <p class="org">@enterprise-co</p>
+        <p data-i18n="exp.r5.body">First job out of school. Shipped internal tools, learned how to code in production, learned how to disagree well in code review.</p>
+        <div class="tagrow"><span>Java</span><span>Internal tools</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="block skills-section" id="skills">
+  <div class="section-head">
+    <div>
+      <div class="label" data-i18n="skills.label">03 — Capabilities</div>
+      <h2 style="color:#fff" data-i18n-html="skills.title">Two stacks, <em>one operator.</em></h2>
+    </div>
+    <div class="meta" data-i18n="skills.meta">
+      Self-rated, ~candid
+    </div>
+  </div>
+
+  <div class="skills">
+
+    <div class="skill-col">
+      <h3><span class="num">01</span> <span data-i18n="skills.tech">Technical Skills</span></h3>
+      <ul class="skill-list">
+        <li><span class="label">TypeScript / Node</span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+        <li><span class="label">Python / FastAPI</span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+        <li><span class="label">LLM Systems &amp; RAG</span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+        <li><span class="label">React / Next.js</span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li><span class="label">Postgres / Redis</span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li><span class="label">AWS / GCP / K8s</span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li><span class="label">Rust</span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
+      </ul>
+    </div>
+
+    <div class="skill-col pm">
+      <h3><span class="num">02</span> <span data-i18n="skills.lead">Leadership Skills</span></h3>
+      <ul class="skill-list">
+        <li><span class="label">Product <em>Strategy</em></span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+        <li><span class="label">Roadmapping &amp; <em>Prioritization</em></span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+        <li><span class="label">Cross-functional Leadership</span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+        <li><span class="label">Stakeholder <em>Storytelling</em></span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li><span class="label">Hiring &amp; Team Design</span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li><span class="label">GTM &amp; <em>Pricing</em></span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li><span class="label">Coaching &amp; 1:1s</span><span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="glyph">&amp;</div>
+
+  <p class="big" data-i18n-html="contact.big">Let's build <em>something</em> worth shipping.</p>
+  <p class="sub" data-i18n="contact.sub">Open to founding-engineer roles, head-of-product seats, and selective consulting on AI product strategy. Fastest reply via email.</p>
+
+  <div class="contact-actions">
+    <a class="cbtn primary" href="mailto:yuchensu24@gmail.com">
+      <span class="icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </span>
+      yuchensu24@gmail.com
+      <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span>
+    </a>
+    <a class="cbtn ghost" href="https://linkedin.com/in/yourname" target="_blank" rel="noopener">
+      <span class="icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21H18.6v-5.5c0-1.3-.02-3-1.83-3-1.83 0-2.1 1.43-2.1 2.9V21H10z"/></svg>
+      </span>
+      LinkedIn
+      <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span>
+    </a>
+    <a class="cbtn ghost" href="#">
+      <span class="icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+      </span>
+      GitHub
+      <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span>
+    </a>
+  </div>
+
+  <div class="contact-foot">
+    <div data-i18n="contact.foot1">© 2026 · Yu-Chen Will Su</div>
+    <div data-i18n="contact.foot2"></div>
+  </div>
+</section>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" data-presets="react">
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;height:22px;
+    border-radius:6px;cursor:default;padding:0}
+`;
+
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((key, val) => {
+    setValues((prev) => ({ ...prev, [key]: val }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+  }, []);
+  return [values, setTweak];
+}
+
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div className="twk-panel">
+        <div className="twk-hd">
+          <b>{title}</b>
+          <button className="twk-x" onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+function TweakSection({ label }) {
+  return <div className="twk-sect">{label}</div>;
+}
+function TweakRow({ label, value, children }) {
+  return (
+    <div className="twk-row">
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+function TweakRadio({ label, value, options, onChange }) {
+  const opts = options.map((o) => ({ value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+  return (
+    <TweakRow label={label}>
+      <div className="twk-seg">
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" onClick={() => onChange(o.value)}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+Object.assign(window, { useTweaks, TweaksPanel, TweakSection, TweakSlider, TweakRadio, TweakText });
+</script>
+
+<div id="tweaks-root"></div>
+
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "glyphChar": " ",
+    "glyphSize": 520,
+    "glyphOpacity": 6,
+    "glyphHue": "amber",
+    "glyphStyle": "serif-italic",
+    "glyphRight": -80,
+    "glyphTop": 80,
+    "glyphWeight": 300
+  }/*EDITMODE-END*/;
+
+  const HUES = {
+    amber:  "232,176,121",
+    cream:  "246,241,232",
+    cyan:   "126,224,211",
+    rose:   "224,150,150",
+    sage:   "160,200,160",
+    mono:   "200,200,200"
+  };
+  const STYLES = {
+    "serif-italic": { family: "'Fraunces', Georgia, serif", style: "italic" },
+    "serif-roman":  { family: "'Fraunces', Georgia, serif", style: "normal" },
+    "display":      { family: "'Space Grotesk', sans-serif", style: "normal" },
+    "mono":         { family: "'JetBrains Mono', monospace", style: "normal" }
+  };
+
+  function App(){
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+    React.useEffect(() => {
+      const root = document.documentElement;
+      const rgb = HUES[t.glyphHue] || HUES.amber;
+      const style = STYLES[t.glyphStyle] || STYLES["serif-italic"];
+      root.style.setProperty('--glyph-size', `${t.glyphSize}px`);
+      root.style.setProperty('--glyph-color', `rgba(${rgb}, ${t.glyphOpacity / 100})`);
+      root.style.setProperty('--glyph-family', style.family);
+      root.style.setProperty('--glyph-style', style.style);
+      root.style.setProperty('--glyph-weight', String(t.glyphWeight));
+      root.style.setProperty('--glyph-right', `${t.glyphRight}px`);
+      root.style.setProperty('--glyph-top', `${t.glyphTop}px`);
+      const el = document.querySelector('.contact .glyph');
+      if (el) el.textContent = t.glyphChar || "&";
+    }, [t]);
+
+    return (
+      <TweaksPanel title="Tweaks · Background Glyph">
+        <TweakSection label="Character" />
+        <TweakText
+          label="Glyph"
+          value={t.glyphChar}
+          onChange={(v) => setTweak('glyphChar', v.slice(0, 4))}
+          placeholder="&"
+        />
+        <TweakRadio
+          label="Style"
+          value={t.glyphStyle}
+          options={["serif-italic", "serif-roman", "display", "mono"]}
+          onChange={(v) => setTweak('glyphStyle', v)}
+        />
+        <TweakSlider
+          label="Weight"
+          value={t.glyphWeight}
+          min={100} max={700} step={100}
+          onChange={(v) => setTweak('glyphWeight', v)}
+        />
+
+        <TweakSection label="Appearance" />
+        <TweakSlider
+          label="Size"
+          value={t.glyphSize}
+          min={120} max={900} step={10} unit="px"
+          onChange={(v) => setTweak('glyphSize', v)}
+        />
+        <TweakSlider
+          label="Opacity"
+          value={t.glyphOpacity}
+          min={0} max={40} step={1} unit="%"
+          onChange={(v) => setTweak('glyphOpacity', v)}
+        />
+        <TweakRadio
+          label="Hue"
+          value={t.glyphHue}
+          options={Object.keys(HUES)}
+          onChange={(v) => setTweak('glyphHue', v)}
+        />
+
+        <TweakSection label="Position" />
+        <TweakSlider
+          label="Offset right"
+          value={t.glyphRight}
+          min={-300} max={200} step={5} unit="px"
+          onChange={(v) => setTweak('glyphRight', v)}
+        />
+        <TweakSlider
+          label="Offset top"
+          value={t.glyphTop}
+          min={-100} max={400} step={5} unit="px"
+          onChange={(v) => setTweak('glyphTop', v)}
+        />
+      </TweaksPanel>
+    );
+  }
+
+  function mount(){
+    if (typeof useTweaks === 'undefined' || typeof TweaksPanel === 'undefined') {
+      return setTimeout(mount, 50);
+    }
+    ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
+  }
+  mount();
+</script>
+
+<script>
+  // Hero hover-expansion
+  (function(){
+    const hero = document.getElementById('hero');
+    const left = hero.querySelector('.left');
+    const right = hero.querySelector('.right');
+    let lock = null;
+
+    function activate(side){
+      hero.classList.remove('left-active','right-active');
+      if(side === 'left') hero.classList.add('left-active');
+      if(side === 'right') hero.classList.add('right-active');
+    }
+    function clear(){ hero.classList.remove('left-active','right-active'); }
+
+    left.addEventListener('mouseenter', () => activate('left'));
+    right.addEventListener('mouseenter', () => activate('right'));
+    hero.addEventListener('mouseleave', clear);
+
+    // touch / click toggles for mobile keyboard or no-hover devices
+    left.addEventListener('focus', () => activate('left'));
+    right.addEventListener('focus', () => activate('right'));
+  })();
+
+  // i18n
+  (function(){
+    const T = {
+      en: {
+        "brand":"YU-CHEN SU<br/>  Will<br/>",
+        "nav.about":"about","nav.skills":"skills","nav.experience":"experience","nav.portfolio":"portfolio","nav.contact":"contact",
+        "hero.left.eyebrow":"Builder mode","hero.left.title":"Coder",
+        "hero.left.sub":"I build scalable software and AI-powered systems — from infra to interface.",
+        "hero.left.cta":"See engineering work",
+        "hero.left.corner1":"01 — Coder","hero.left.corner2":"$ whoami → builder",
+        "hero.right.eyebrow":"Operator mode",
+        "hero.right.title":"Strategy <span class=\"accent\" style=\"font-family: sans-serif\">&amp;</span> Leadership",
+        "hero.right.sub":"I drive products from idea to impact — aligning teams, defining vision, shipping outcomes.",
+        "hero.right.cta":"See strategy work",
+        "hero.right.corner1":"02 — Strategy","hero.right.corner2":"— Idea → Impact",
+        "hero.right.quote":"\"The hardest part isn't<br/>building the thing —<br/>it's deciding which thing<br/>to build.\"",
+        "photo.label":"PHOTO · 1:1","photo.tag":"Your Name · Coder × Operator",
+        "work.label":"01 — Featured Work","work.title":"Selected <em>projects</em>, two ways.",
+        "work.meta":"Updated · 2026<br/>03 of 12 shown",
+        "tag.coder":"[ Coder ]","tag.pm":"[ Project Management ]",
+        "work.p1.year":"2025 — present","work.p1.title":"Realtime LLM Orchestration Engine",
+        "work.p1.body":"A streaming inference layer that routes prompts across model providers with sub-100ms failover. Cut p95 latency 38% and infra spend 2.4×.",
+        "work.p2.year":"2024 — 2025","work.p2.title":"Zero-to-One Fintech Launch",
+        "work.p2.body":"Led 14-person cross-functional team from blank doc to public launch in 9 months. Defined roadmap, owned GTM, hit 22k WAU in quarter one.",
+        "work.p3.title":"Open-Source Agent Framework",
+        "work.p3.body":"Composable primitives for building tool-using agents. 6.4k GitHub stars, 90+ contributors, used by three YC companies in production.",
+        "skills.label":"03 — Capabilities","skills.title":"Two stacks, <em>one operator.</em>",
+        "skills.meta":"Self-rated, ~candid","skills.tech":"Technical Skills","skills.lead":"Leadership Skills",
+        "exp.label":"02 — Experience","exp.title":"A career, <em>zigzagged</em> on purpose.",
+        "exp.meta":"2017 — Present<br/>5 roles · 3 cities",
+        "exp.r1.yr":"2024 — Present","exp.r1.loc":"San Francisco","exp.r1.title":"Head of Product","exp.r1.org":"Stealth AI Startup",
+        "exp.r1.body":"Leading product, design, and applied research from seed to Series A. Defined the wedge, hired the founding team, took v1 from kickoff to public launch in 9 months.",
+        "exp.r2.loc":"Remote","exp.r2.title":"Staff Software Coder",
+        "exp.r2.body":"Tech lead on the platform team. Re-architected the data plane to support 50× growth, mentored 6 engineers, owned the LLM features that unlocked the company's largest enterprise deal to date.",
+        "exp.r3.loc":"New York","exp.r3.title":"Senior Product Manager","exp.r3.org":"Series B Fintech",
+        "exp.r3.body":"Owned the consumer-facing product surface. Shipped weekly with a team of 9, ran the OKR cycle for the org, drove a pricing change that lifted ARPU 31%.",
+        "exp.r4.loc":"New York","exp.r4.title":"Software Coder",
+        "exp.r4.body":"Full-stack engineer on the trading platform. Built the matching engine v2, owned the public API, on-call rotation for the production stack.",
+        "exp.r5.loc":"Toronto","exp.r5.title":"Software Coder, New Grad",
+        "exp.r5.body":"First job out of school. Shipped internal tools, learned how to code in production, learned how to disagree well in code review.",
+        "contact.big":"Let's build <em>something</em> worth shipping.",
+        "contact.sub":"Open to founding-engineer roles, head-of-product seats, and selective consulting on AI product strategy. Fastest reply via email.",
+        "contact.foot1":"© 2026 · Yu-Chen Will Su","contact.foot2":""
+      },
+      zh: {
+        "brand":"蘇友辰<br/>  Will Su<br/>",
+        "nav.about":"關於","nav.skills":"技能","nav.experience":"經歷","nav.portfolio":"作品","nav.contact":"聯絡",
+        "hero.left.eyebrow":"建構者模式","hero.left.title":"工程師",
+        "hero.left.sub":"我打造可擴展的軟體與 AI 驅動的系統 —— 從基礎架構到使用者介面。",
+        "hero.left.cta":"查看工程作品",
+        "hero.left.corner1":"01 — 工程師","hero.left.corner2":"$ whoami → 建構者",
+        "hero.right.eyebrow":"操盤手模式",
+        "hero.right.title":"策略 <span class=\"accent\" style=\"font-family: sans-serif\">&amp;</span> 領導力",
+        "hero.right.sub":"我推動產品從構想走向影響力 —— 凝聚團隊、定義願景、交付成果。",
+        "hero.right.cta":"查看策略作品",
+        "hero.right.corner1":"02 — 策略","hero.right.corner2":"— 構想 → 影響",
+        "hero.right.quote":"「最難的不是<br/>把東西做出來 ——<br/>而是決定<br/>該做什麼。」",
+        "photo.label":"照片 · 1:1","photo.tag":"你的名字 · 工程師 × 操盤手",
+        "work.label":"01 — 精選作品","work.title":"兩條路徑,<em>同一份</em>用心。",
+        "work.meta":"更新於 · 2026<br/>已展示 03 / 12",
+        "tag.coder":"[ 工程 ]","tag.pm":"[ 專案管理 ]",
+        "work.p1.year":"2025 — 至今","work.p1.title":"即時 LLM 調度引擎",
+        "work.p1.body":"一個串流推論層,可在多家模型供應商之間路由請求,達成亞百毫秒級故障切換。p95 延遲降低 38%,基礎架構成本減少 2.4 倍。",
+        "work.p2.year":"2024 — 2025","work.p2.title":"金融科技 0 到 1 上線",
+        "work.p2.body":"帶領 14 人跨職能團隊,從空白文件到公開上線僅用 9 個月。定義產品路線圖、主導 GTM,首季達成 2.2 萬週活躍使用者。",
+        "work.p3.title":"開源 Agent 框架",
+        "work.p3.body":"用於建構工具呼叫型 Agent 的可組合原語。GitHub 6.4k Star,90+ 貢獻者,被三家 YC 公司用於正式環境。",
+        "skills.label":"03 — 能力","skills.title":"兩套技術堆疊,<em>同一位操盤手。</em>",
+        "skills.meta":"自評,盡量坦誠","skills.tech":"技術技能","skills.lead":"領導力技能",
+        "exp.label":"02 — 經歷","exp.title":"一段<em>有意為之</em>的折線生涯。",
+        "exp.meta":"2017 — 至今<br/>5 段經歷 · 3 座城市",
+        "exp.r1.yr":"2024 — 至今","exp.r1.loc":"舊金山","exp.r1.title":"產品負責人","exp.r1.org":"隱身 AI 新創",
+        "exp.r1.body":"從種子輪到 A 輪,負責產品、設計與應用研究。定義切入點、組建創辦團隊,9 個月內將 v1 從啟動推向公開發表。",
+        "exp.r2.loc":"遠端","exp.r2.title":"資深軟體工程師",
+        "exp.r2.body":"平台團隊技術負責人。重構資料層以支援 50 倍成長,指導 6 名工程師,主導的 LLM 功能促成公司迄今最大的企業訂單。",
+        "exp.r3.loc":"紐約","exp.r3.title":"資深產品經理","exp.r3.org":"B 輪金融科技公司",
+        "exp.r3.body":"負責面向消費者的產品。帶 9 人團隊週更迭代,主導 OKR 週期,推動定價調整使 ARPU 提升 31%。",
+        "exp.r4.loc":"紐約","exp.r4.title":"軟體工程師",
+        "exp.r4.body":"交易平台全端工程師。建構撮合引擎 v2,負責公開 API,參與正式環境值班輪班。",
+        "exp.r5.loc":"多倫多","exp.r5.title":"軟體工程師 · 新鮮人",
+        "exp.r5.body":"畢業後的第一份工作。交付內部工具,學會如何在正式環境寫程式,也學會如何在 Code Review 中得體地表達不同意見。",
+        "contact.big":"一起做點<em>值得</em>上線的東西。",
+        "contact.sub":"開放創辦工程師、產品負責人職缺,以及 AI 產品策略相關的精選顧問合作。電子郵件回覆最快。",
+        "contact.foot1":"© 2026 · Yu-Chen Will Su","contact.foot2":""
+      }
+    };
+
+    function apply(lang){
+      const dict = T[lang] || T.en;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (dict[k] != null) el.textContent = dict[k];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const k = el.getAttribute('data-i18n-html');
+        if (dict[k] != null) el.innerHTML = dict[k];
+      });
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      document.querySelectorAll('.lang-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+      });
+      try { localStorage.setItem('site.lang', lang); } catch(e){}
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.addEventListener('click', () => apply(b.getAttribute('data-lang')));
+    });
+
+    let initial = 'en';
+    try { initial = localStorage.getItem('site.lang') || 'en'; } catch(e){}
+    apply(initial);
+  })();
+
+  // Scroll-spy: highlight active nav tab
+  (function(){
+    const tabs = document.querySelectorAll('.nav .links a[data-tab]');
+    if (!tabs.length) return;
+    const map = {
+      about: 'hero',
+      skills: 'skills',
+      experience: 'experience',
+      portfolio: 'work',
+      contact: 'contact',
+    };
+    const targets = Array.from(tabs).map(a => ({
+      a, el: document.getElementById(map[a.dataset.tab])
+    })).filter(x => x.el).sort((a, b) => a.el.offsetTop - b.el.offsetTop);
+
+    function update(){
+      const y = window.scrollY + window.innerHeight * 0.35;
+      let active = targets[0];
+      for (const t of targets) {
+        if (t.el.offsetTop <= y) active = t;
+      }
+      tabs.forEach(t => t.classList.toggle('active', t === active.a));
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  })();
+
+  // Smooth scroll for nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if(id.length > 1){
+        const t = document.querySelector(id);
+        if(t){
+          e.preventDefault();
+          t.scrollIntoView({behavior:'smooth', block:'start'});
+          // Note: scrollIntoView is fine here because this is a static personal site, not an embedded app.
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
