@@ -76,7 +76,7 @@ export function Hero() {
         <div className="ring outer" />
         <div className="ring" />
         <div className="photo">
-          <Image src="/photo.png" alt="Yu-Chen Su" fill sizes="280px" style={{ objectFit: "cover" }} priority />
+          <Image src="/photo.jpeg" alt="Yu-Chen Su" fill sizes="280px" style={{ objectFit: "cover" }} priority />
         </div>
         <div className="name-tag">{t("photo.tag")}</div>
       </div>
